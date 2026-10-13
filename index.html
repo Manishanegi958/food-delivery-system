@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FoodieGo - Order delicious food from your favorite restaurants.">
+    <title>FoodieGo | Food Delivery</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="#home" class="logo">🍔 Foodie<span>Go</span></a>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#restaurants">Restaurants</a>
+        <a href="#menu">Menu</a>
+        <a href="#footer">Contact</a>
+    </nav>
+
+    <button class="cart-button" id="openCart" type="button">
+        🛒 Cart <span id="cartCount">0</span>
+    </button>
+</header>
+
+<main>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <span class="eyebrow">FRESH FOOD, HAPPY MOOD!</span>
+            <h1>Your favorite food,<br>delivered <span>with love.</span></h1>
+            <p>Discover delicious meals from the best restaurants around you.
+               Fresh ingredients, amazing flavors, and quick delivery.</p>
+            <div class="hero-buttons">
+                <a href="#menu" class="btn primary">Explore Menu →</a>
+                <a href="#restaurants" class="btn secondary">View Restaurants</a>
+            </div>
+            <div class="hero-stats">
+                <div><strong>50+</strong><small>Food Choices</small></div>
+                <div><strong>20+</strong><small>Restaurants</small></div>
+                <div><strong>30 min</strong><small>Fast Delivery</small></div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=85"
+                 alt="Freshly prepared pizza">
+            <div class="floating-card">⭐ 4.9 Rating<br><small>Loved by foodies</small></div>
+        </div>
+    </section>
+
+    <section class="offer-banner">
+        <div>
+            <span>LIMITED-TIME OFFER</span>
+            <h2>Get 20% OFF your first order!</h2>
+            <p>Discover your next favorite meal today.</p>
+        </div>
+        <a href="#menu" class="btn offer-btn">Order Now →</a>
+    </section>
+
+    <section class="section" id="categories">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">WHAT ARE YOU CRAVING?</span>
+                <h2>Explore Categories</h2>
+            </div>
+        </div>
+        <div class="category-list" id="categoryList">
+            <button class="category active" data-category="All">🍽️<span>All Foods</span></button>
+            <button class="category" data-category="Pizza">🍕<span>Pizza</span></button>
+            <button class="category" data-category="Burgers">🍔<span>Burgers</span></button>
+            <button class="category" data-category="Fast Food">🍟<span>Fast Food</span></button>
+            <button class="category" data-category="Desserts">🍰<span>Desserts</span></button>
+            <button class="category" data-category="Beverages">🥤<span>Beverages</span></button>
+            <button class="category" data-category="Healthy Meals">🥗<span>Healthy Meals</span></button>
+        </div>
+    </section>
+
+    <section class="section restaurant-section" id="restaurants">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">YOUR NEXT FAVORITE PLACE</span>
+                <h2>Popular Restaurants</h2>
+                <p>Great food from restaurants you'll love.</p>
+            </div>
+        </div>
+        <div class="restaurant-grid" id="restaurantGrid"></div>
+    </section>
+
+    <section class="section menu-section" id="menu">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">MADE FRESH FOR YOU</span>
+                <h2>Our Delicious Menu</h2>
+                <p>Find your favorite food and add it to your cart.</p>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <input id="searchInput" type="search"
+                   placeholder="🔍 Search food or restaurant..."
+                   aria-label="Search food or restaurant">
+
+            <select id="categoryFilter" aria-label="Filter by food category">
+                <option value="All">All Categories</option>
+                <option value="Pizza">Pizza</option>
+                <option value="Burgers">Burgers</option>
+                <option value="Fast Food">Fast Food</option>
+                <option value="Desserts">Desserts</option>
+                <option value="Beverages">Beverages</option>
+                <option value="Healthy Meals">Healthy Meals</option>
+            </select>
+
+            <select id="priceFilter" aria-label="Filter by price">
+                <option value="all">Any Price</option>
+                <option value="under150">Under ₹150</option>
+                <option value="150-300">₹150–₹300</option>
+                <option value="over300">Above ₹300</option>
+            </select>
+
+            <select id="sortFilter" aria-label="Sort food">
+                <option value="popular">Most Popular</option>
+                <option value="rating">Highest Rated</option>
+                <option value="low">Price: Low to High</option>
+                <option value="high">Price: High to Low</option>
+            </select>
+        </div>
+
+        <div class="food-grid" id="foodGrid"></div>
+        <p id="noResults" class="empty-message" hidden>
+            No food items found. Try another search or filter.
+        </p>
+    </section>
+
+    <section class="cta-section">
+        <div>
+            <span class="eyebrow">HUNGRY ALREADY?</span>
+            <h2>Good food. Great mood. Every time.</h2>
+            <p>Your next delicious meal is only a few clicks away.</p>
+        </div>
+        <a href="#menu" class="btn primary">Order Your Favorites →</a>
+    </section>
+</main>
+
+<!-- Shopping Cart Drawer -->
+<div class="overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer"
+       role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="drawer-header">
+        <h2 id="cartTitle">🛒 Your Cart</h2>
+        <button class="close-button" id="closeCart" type="button"
+                aria-label="Close cart">✕</button>
+    </div>
+
+    <div id="cartItems" class="cart-items"></div>
+
+    <div class="cart-footer">
+        <div class="total-row"><span>Subtotal</span><strong id="subtotal">₹0</strong></div>
+        <div class="total-row"><span>Delivery Fee</span><strong id="deliveryFee">₹0</strong></div>
+        <div class="total-row grand-total"><span>Total</span><strong id="grandTotal">₹0</strong></div>
+        <button id="clearCart" class="btn secondary full-width" type="button">Clear Cart</button>
+        <button id="checkoutButton" class="btn primary full-width" type="button">Proceed to Checkout →</button>
+    </div>
+</aside>
+
+<!-- Checkout Form -->
+<section class="checkout-section" id="checkoutSection" hidden>
+    <div class="checkout-card">
+        <div class="drawer-header">
+            <h2>📝 Complete Your Order</h2>
+            <button id="closeCheckout" class="close-button" type="button"
+                    aria-label="Close checkout">✕</button>
+        </div>
+
+        <div id="checkoutSummary" class="checkout-summary"></div>
+
+        <form id="orderForm">
+            <label for="customerName">Full Name</label>
+            <input type="text" id="customerName" name="customerName"
+                   placeholder="Enter your full name" required minlength="2"
+                   maxlength="80" autocomplete="name">
+
+            <label for="customerPhone">Phone Number</label>
+            <input type="tel" id="customerPhone" name="customerPhone"
+                   placeholder="Enter 10-digit mobile number"
+                   pattern="[6-9][0-9]{9}" title="Enter a valid 10-digit Indian mobile number"
+                   required maxlength="10" inputmode="numeric" autocomplete="tel">
+
+            <label for="customerAddress">Delivery Address</label>
+            <textarea id="customerAddress" name="customerAddress"
+                      placeholder="House number, street, city, PIN code"
+                      required minlength="10" maxlength="300"
+                      autocomplete="street-address"></textarea>
+
+            <label for="paymentMethod">Payment Method</label>
+            <select id="paymentMethod" name="paymentMethod" required>
+                <option value="Cash on Delivery">Cash on Delivery</option>
+                <option value="UPI (Demo)">UPI (Demo)</option>
+                <option value="Card (Demo)">Card (Demo)</option>
+            </select>
+
+            <p class="form-note">Demo checkout only. No real payment will be processed.</p>
+            <button class="btn primary full-width" type="submit">Place Order ✓</button>
+        </form>
+    </div>
+</section>
+
+<!-- Order Confirmation -->
+<section class="confirmation-section" id="confirmationSection" hidden>
+    <div class="confirmation-card">
+        <div class="success-icon">✓</div>
+        <h2>Order Placed Successfully!</h2>
+        <p>Thank you for choosing FoodieGo. Here is your order summary.</p>
+        <div id="orderConfirmationDetails"></div>
+        <button id="newOrderButton" class="btn primary" type="button">
+            Continue Shopping →
+        </button>
+    </div>
+</section>
+
+<footer id="footer">
+    <div class="footer-content">
+        <div>
+            <a href="#home" class="logo footer-logo">🍔 Foodie<span>Go</span></a>
+            <p>Bringing happiness to your doorstep, one meal at a time.</p>
+        </div>
+        <div>
+            <h3>Quick Links</h3>
+            <a href="#home">Home</a>
+            <a href="#restaurants">Restaurants</a>
+            <a href="#menu">Our Menu</a>
+        </div>
+        <div>
+            <h3>Contact Us</h3>
+            <p>📧 hello@foodiego.example</p>
+            <p>📞 +91 98765 43210</p>
+            <p>📍 India</p>
+        </div>
+        <div>
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">© 2026 FoodieGo. Student project for educational purposes.</div>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="script.js" defer></script>
+</body>
+</html>
